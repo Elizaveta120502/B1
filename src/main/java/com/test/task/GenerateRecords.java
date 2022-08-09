@@ -22,7 +22,7 @@ public class GenerateRecords {
     private static final int START_OF_ASCII_LOW_LATIN_REGISTER = 97;
     private static final int END_OF_ASCII_LOW_LATIN_REGISTER = 122;
 
-    private static final int NUMBER_OF_RECORDS = 12;
+    private static final int NUMBER_OF_RECORDS = 10;
     private static final int NUMBER_OF_ELEMENTS_FOR_DELEGATE = NUMBER_OF_RECORDS * NUMBER_OF_RECORDS * ConnectionToDB.NUMBER_OF_COLUMNS_IN_DATA;
     private static int deletedStringsCounter = 0;
 
@@ -82,12 +82,13 @@ public class GenerateRecords {
     private static void createFiles() {
         FileWriter writer = null;
         for (int i = 0; i < NUMBER_OF_RECORDS; i++) {
+            //path to file
             Path path = Paths.get("C:/TestTask-B1/src/main/resources/textFiles/file" + i + ".txt");
             try {
                 for (int k = 0; k < NUMBER_OF_RECORDS; k++) {
                     String str = String.join("||", generateRandomDate(), generateRandomLatinString(), generateRandomRuString(),
                             generateEvenNumber(), generateNumberFromOneToTwenty());
-
+                    //write information to file
                     writer = new FileWriter(String.valueOf(path), true);
                     writer.write(str);
                     writer.append('\n');
@@ -106,10 +107,13 @@ public class GenerateRecords {
     }
 
     private static String generateRandomDate() {
+        //start data
         LocalDate startDate = LocalDate.of(2017, 1, 1);
         long start = startDate.toEpochDay();
+        //the date of today
         LocalDate endDate = LocalDate.now();
         long end = endDate.toEpochDay();
+        //select random data
         long random = ThreadLocalRandom.current().nextLong(start, end);
         String randomDate = String.valueOf(LocalDate.ofEpochDay(random));
 
@@ -119,6 +123,7 @@ public class GenerateRecords {
     private static String generateRandomLatinString() {
         int[] finishRandomLatinCodes = new int[10];
         Random rand = new Random();
+        //generate random strings with the help of symbols codes
         for (int i = 0; i < 10; i++) {
             int temp = rand.nextInt(2);
 
@@ -147,6 +152,7 @@ public class GenerateRecords {
     }
 
     private static String generateRandomRuString() {
+        //generate random string with ru symbols
         String ruLet = new String("абвгдеёжзиклмнопрстуфхцчшщьыъэюяАБВГДЕЁЖЗИКЛМНОПРСТУФХЦЧШЩЭЮЯ");
         char buf[] = ruLet.toCharArray();
         char[] codesToChars = new char[10];
@@ -223,7 +229,7 @@ public class GenerateRecords {
 
                 }
             } else {
-
+                //delete selected records in every file
                 for (int i = 0; i < NUMBER_OF_RECORDS; i++) {
                     Path path = Paths.get("C:/TestTask-B1/src/main/resources/textFiles/file" + i + ".txt");
 
@@ -253,6 +259,7 @@ public class GenerateRecords {
     }
 
     private static void unitFiles(List<String> bufferCollection) throws IOException {
+        // unite files into one
         File unitFile = new File("C:/TestTask-B1/src/main/resources/textFiles/unit.txt");
 
         FileWriter writer = new FileWriter(unitFile.getPath(), true);
@@ -270,6 +277,7 @@ public class GenerateRecords {
     }
 
     private static void showTerms(){
+        //the terms of the program
         System.out.println("Choose action:");
 
         System.out.println("1) Merge all files into one \n" +

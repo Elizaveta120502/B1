@@ -39,7 +39,7 @@ public class ConnectionToDB {
             int i = 0;
             int amountOfLeftRecords = elementArray.size() / NUMBER_OF_COLUMNS_IN_DATA;
 
-
+            //create query for every string
             for (int j = NUMBER_OF_COLUMNS_IN_DATA; j < elementArray.size() + 1; j = j + NUMBER_OF_COLUMNS_IN_DATA) {
 
                 String query = "insert into data (id,date_field,latin,ru,big_integer,big_number) " +
@@ -54,6 +54,7 @@ public class ConnectionToDB {
             }
 
         } catch (SQLException sqlEx) {
+            sqlEx.printStackTrace();
             LoggerProvider.getLOG().error("SQLException occurred");
             return false;
         } finally {
@@ -120,6 +121,7 @@ public class ConnectionToDB {
             try {
                 resultSet.close();
             } catch (SQLException se) {
+                se.printStackTrace();
                 LoggerProvider.getLOG().error("SQLException occurred");
                 return false;
             }
@@ -133,12 +135,14 @@ public class ConnectionToDB {
         try {
             connection.close();
         } catch (SQLException se) {
+            se.printStackTrace();
             LoggerProvider.getLOG().error("SQLException occurred");
             return false;
         }
         try {
             statement.close();
         } catch (SQLException se) {
+            se.printStackTrace();
             LoggerProvider.getLOG().error("SQLException occurred");
             return false;
         }

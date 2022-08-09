@@ -12,6 +12,7 @@ public class SelectDataToDB {
 
     private static SelectDataToDB instance;
 
+
     public static SelectDataToDB getInstance(){
         if (instance ==null){
             instance = new SelectDataToDB();
